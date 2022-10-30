@@ -5,9 +5,9 @@ import com.example.petstoreclone.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -19,6 +19,7 @@ public class UserService {
     }
 
     public User save(User user) {
+        user.setToken(UUID.randomUUID().toString());
         return userRepository.save(user);
     }
 
@@ -26,7 +27,9 @@ public class UserService {
         return userRepository.save(user);
     }
     public List<User> saveAll(List<User> users){
-        userRepository.saveAll(users);
+        for(User u : users){
+            save(u);
+        }
         return users;
     }
 

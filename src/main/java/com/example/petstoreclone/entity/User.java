@@ -8,6 +8,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String token;
     @NotBlank(message = "Field cant be empty")
     private String username;
     @NotBlank(message = "Field cant be empty")
@@ -25,8 +26,9 @@ public class User {
     public User() {
     }
 
-    public User(long id, String username, String firstName, String lastName, String email, String password, String phone, int userStatus) {
+    public User(long id, String token, String username, String firstName, String lastName, String email, String password, String phone, int userStatus) {
         this.id = id;
+        this.token = token;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,6 +44,14 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getUsername() {
@@ -104,6 +114,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", token='" + token + '\'' +
                 ", username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

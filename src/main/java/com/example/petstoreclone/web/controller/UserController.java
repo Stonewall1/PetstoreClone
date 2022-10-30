@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +45,16 @@ public class UserController {
     public ResponseEntity<?> createListOfUsers(@Valid @RequestBody List<User> users) {
         userService.saveAll(users);
         return new ResponseEntity<>(users, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/login")
+    @Operation(summary = "Logs user into the system")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "200", description = "OK")
+    })
+    public ResponseEntity<?> login(@Parameter(description = "User token required") String token) {
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     @GetMapping("/{username}")
