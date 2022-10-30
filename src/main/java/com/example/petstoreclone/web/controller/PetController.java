@@ -1,5 +1,6 @@
 package com.example.petstoreclone.web.controller;
 
+import com.example.petstoreclone.dto.PetUpdateDto;
 import com.example.petstoreclone.entity.Pet;
 import com.example.petstoreclone.service.PetService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -71,6 +72,23 @@ public class PetController {
             return new ResponseEntity<>(byId.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/{petId}")
+    @Operation(summary = "Update pet by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid ID value"),
+            @ApiResponse(responseCode = "200", description = "OK"),
+    })
+    public ResponseEntity<?> update(@PathVariable("petId") long petId, @Valid @RequestBody PetUpdateDto petUpdateDto) {
+        Optional<Pet> byId = petService.findById(petId);
+        if (byId.isPresent()) {
+            byId.get().setName(petUpdateDto.getName());
+            byId.get().setStatus(petUpdateDto.getStatus());
+            Pet update = petService.update(byId.get());
+            return new ResponseEntity<>(update, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{petId}")
