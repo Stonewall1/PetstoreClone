@@ -1,5 +1,6 @@
 package com.example.petstoreclone.web.controller;
 
+import com.example.petstoreclone.dto.PetStatusDto;
 import com.example.petstoreclone.dto.PetUpdateDto;
 import com.example.petstoreclone.entity.Pet;
 import com.example.petstoreclone.service.PetService;
@@ -55,8 +56,8 @@ public class PetController {
             @ApiResponse(responseCode = "400", description = "Invalid status value"),
             @ApiResponse(responseCode = "200", description = "OK"),
     })
-    public ResponseEntity<?> findByStatus(@Parameter(description = "Status values that need to be considered for filter") @RequestParam(value = "status", required = false) String status) {
-        List<Pet> allByStatus = petService.findPetsByStatus(status);
+    public ResponseEntity<List<Pet>> findByStatus(@Parameter(description = "Status values that need to be considered for filter") @Valid @RequestBody PetStatusDto status) {
+        List<Pet> allByStatus = petService.findPetsByStatus(status.getStatus());
         return new ResponseEntity<>(allByStatus, HttpStatus.OK);
     }
 
