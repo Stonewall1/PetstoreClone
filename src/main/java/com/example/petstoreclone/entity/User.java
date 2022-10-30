@@ -1,8 +1,12 @@
 package com.example.petstoreclone.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotBlank(message = "Field cant be empty")
     private String username;
