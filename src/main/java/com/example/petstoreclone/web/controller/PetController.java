@@ -48,17 +48,16 @@ public class PetController {
         return new ResponseEntity<>(update, HttpStatus.ACCEPTED);
     }
 
-//    @GetMapping("/findByStatus")
-//    @Operation(summary = "Find pets by status")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "400", description = "Invalid status value"),
-//            @ApiResponse(responseCode = "200", description = "OK"),
-//    })
-//    public ResponseEntity<?> findByStatus(@Parameter(description = "Status values that need to be considered for filter") String status) {
-//        List<Pet> allByStatus = petService.findAllByStatus(status);
-//        System.out.println(allByStatus);
-//        return new ResponseEntity<>(allByStatus, HttpStatus.OK);
-//    }
+    @GetMapping("/findByStatus")
+    @Operation(summary = "Find pets by status")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid status value"),
+            @ApiResponse(responseCode = "200", description = "OK"),
+    })
+    public ResponseEntity<?> findByStatus(@Parameter(description = "Status values that need to be considered for filter") @RequestParam(value = "status", required = false) String status) {
+        List<Pet> allByStatus = petService.findPetsByStatus(status);
+        return new ResponseEntity<>(allByStatus, HttpStatus.OK);
+    }
 
     @GetMapping("/{petId}")
     @Operation(summary = "Find pet by ID")

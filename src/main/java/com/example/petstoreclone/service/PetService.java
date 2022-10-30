@@ -27,10 +27,12 @@ public class PetService {
     }
 
     @Transactional(readOnly = true)
-    public List<Pet> findAllByStatus(String status) {
-        return petRepository.findByStatus(status);
+    public List<Pet> findPetsByStatus(String status) {
+        return petRepository.findPetsByStatus(status);
     }
-    public Optional<Pet> findById(long id){
+
+    @Transactional(readOnly = true)
+    public Optional<Pet> findById(long id) {
         return petRepository.findById(id);
     }
 }
