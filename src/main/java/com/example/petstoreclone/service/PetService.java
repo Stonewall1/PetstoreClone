@@ -1,6 +1,7 @@
 package com.example.petstoreclone.service;
 
 import com.example.petstoreclone.entity.Pet;
+import com.example.petstoreclone.exceptions.NoIdFoundException;
 import com.example.petstoreclone.repository.PetRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,5 +35,13 @@ public class PetService {
     @Transactional(readOnly = true)
     public Optional<Pet> findById(long id) {
         return petRepository.findById(id);
+    }
+
+    public Pet deleteById(long id) {
+        Optional<Pet> byId = findById(id);
+        if (byId.isPresent()) {
+            petRepository.deleteById(id);
+            return byId.get();
+        } else throw new NoIdFoundException();
     }
 }

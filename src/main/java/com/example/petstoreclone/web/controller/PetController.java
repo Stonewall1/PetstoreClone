@@ -65,11 +65,22 @@ public class PetController {
             @ApiResponse(responseCode = "400", description = "Invalid ID value"),
             @ApiResponse(responseCode = "200", description = "OK"),
     })
-    public ResponseEntity<?> findById(@PathVariable("petId") @Parameter(description = "Status values that need to be considered for filter") long id) {
+    public ResponseEntity<?> findById(@PathVariable("petId") @Parameter(description = "Pet id") long id) {
         Optional<Pet> byId = petService.findById(id);
         if (byId.isPresent()) {
             return new ResponseEntity<>(byId.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/{petId}")
+    @Operation(summary = "Deletes a pet")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid ID value"),
+            @ApiResponse(responseCode = "202", description = "Accepted"),
+    })
+    public ResponseEntity<?> deleteById(@PathVariable("petId") @Parameter(description = "Pet id") long id) {
+        Pet pet = petService.deleteById(id);
+        return new ResponseEntity<>(pet, HttpStatus.OK);
     }
 }

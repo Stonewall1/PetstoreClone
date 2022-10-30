@@ -1,5 +1,6 @@
 package com.example.petstoreclone.web.controller;
 
+import com.example.petstoreclone.exceptions.NoIdFoundException;
 import com.example.petstoreclone.exceptions.NoTokenFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,11 @@ public class ErrorController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NoTokenFoundException.class)
     public ResponseEntity<?> noTokenFound(NoTokenFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoIdFoundException.class)
+    public ResponseEntity<?> noIdFound(NoIdFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
