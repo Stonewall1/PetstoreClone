@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,6 +35,17 @@ public class UserController {
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User save = userService.save(user);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/createWithList")
+    @Operation(summary = "Creates list of users with given input array")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "201", description = "Created")
+    })
+    public ResponseEntity<?> createListOfUsers(@Valid @RequestBody List<User> users) {
+        userService.saveAll(users);
+        return new ResponseEntity<>(users, HttpStatus.CREATED);
     }
 
     @GetMapping("/{username}")
@@ -58,7 +71,7 @@ public class UserController {
         Optional<User> byUsername = userService.findByUsername(username);
         if (byUsername.isPresent()) {
             user.setId(byUsername.get().getId());
-            User save = userService.save(user);
+            User save = userService.update(user);
             return new ResponseEntity<>(save, HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -5,6 +5,8 @@ import com.example.petstoreclone.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +20,14 @@ public class UserService {
 
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    public User update(User user) {
+        return userRepository.save(user);
+    }
+    public List<User> saveAll(List<User> users){
+        userRepository.saveAll(users);
+        return users;
     }
 
     public Optional<User> deleteByUsername(String username) {
