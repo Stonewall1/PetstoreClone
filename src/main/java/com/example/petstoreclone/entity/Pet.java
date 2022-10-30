@@ -9,7 +9,7 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Category category;
     @NotBlank(message = "Field cant be empty")
     private String name;

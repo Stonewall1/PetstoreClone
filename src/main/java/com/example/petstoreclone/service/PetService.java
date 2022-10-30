@@ -18,4 +18,8 @@ public class PetService {
         petRepository.save(pet);
         return pet;
     }
+
+    public Pet update(Pet pet) {
+        return petRepository.save(pet);
+    }
 }

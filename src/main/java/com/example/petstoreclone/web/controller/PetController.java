@@ -1,19 +1,19 @@
 package com.example.petstoreclone.web.controller;
 
 import com.example.petstoreclone.entity.Pet;
+import com.example.petstoreclone.entity.User;
 import com.example.petstoreclone.service.PetService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/pet")
@@ -34,5 +34,17 @@ public class PetController {
     public ResponseEntity<?> add(@Valid @RequestBody Pet pet) {
         Pet save = petService.save(pet);
         return new ResponseEntity<>(save, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    @Operation(summary = "Update an existing pet")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Pet not found"),
+            @ApiResponse(responseCode = "202", description = "Accepted"),
+    })
+    public ResponseEntity<?> update(@Valid @RequestBody Pet pet) {
+        Pet update = petService.update(pet);
+        return new ResponseEntity<>(update, HttpStatus.ACCEPTED);
     }
 }
