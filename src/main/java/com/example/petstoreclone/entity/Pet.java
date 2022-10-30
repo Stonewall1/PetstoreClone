@@ -1,6 +1,7 @@
 package com.example.petstoreclone.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "pets")
@@ -8,8 +9,9 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;
+    @NotBlank(message = "Field cant be empty")
     private String name;
     @Enumerated(EnumType.STRING)
     private Status status;
