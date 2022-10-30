@@ -5,6 +5,9 @@ import com.example.petstoreclone.repository.PetRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 public class PetService {
@@ -21,5 +24,13 @@ public class PetService {
 
     public Pet update(Pet pet) {
         return petRepository.save(pet);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Pet> findAllByStatus(String status) {
+        return petRepository.findByStatus(status);
+    }
+    public Optional<Pet> findById(long id){
+        return petRepository.findById(id);
     }
 }

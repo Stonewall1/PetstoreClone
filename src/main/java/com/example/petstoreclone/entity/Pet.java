@@ -9,17 +9,17 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Category category;
+    @NotBlank(message = "Field cant be empty")
+    private String category;
     @NotBlank(message = "Field cant be empty")
     private String name;
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    @NotBlank(message = "Field cant be empty")
+    private String status;
 
     public Pet() {
     }
 
-    public Pet(long id, Category category, String name, Status status) {
+    public Pet(long id, String category, String name, String status) {
         this.id = id;
         this.category = category;
         this.name = name;
@@ -34,11 +34,11 @@ public class Pet {
         this.id = id;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -50,11 +50,11 @@ public class Pet {
         this.name = name;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -62,9 +62,9 @@ public class Pet {
     public String toString() {
         return "Pet{" +
                 "id=" + id +
-                ", category=" + category +
+                ", category='" + category + '\'' +
                 ", name='" + name + '\'' +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
