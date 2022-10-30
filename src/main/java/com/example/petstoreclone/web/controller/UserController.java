@@ -3,6 +3,7 @@ package com.example.petstoreclone.web.controller;
 import com.example.petstoreclone.entity.User;
 import com.example.petstoreclone.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,9 +42,26 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User not found"),
             @ApiResponse(responseCode = "202", description = "Accepted"),
     })
-    public ResponseEntity<User> findByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<User> findByUsername(@PathVariable("username") @Parameter(description = "Username that needs to be fetched") String username) {
         Optional<User> byUsername = userService.findByUsername(username);
         return byUsername.map(user -> new ResponseEntity<>(user, HttpStatus.ACCEPTED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/{username}")
+    @Operation(summary = "Update user", description = "This can only be done by the logged in user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
+            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(responseCode = "202", description = "Accepted"),
+    })
+    public ResponseEntity<?> updateByUsername(@PathVariable("username") @Parameter(description = "Updating by username") String username, @Valid @RequestBody User user) {
+        Optional<User> byUsername = userService.findByUsername(username);
+        if (byUsername.isPresent()) {
+            user.setId(byUsername.get().getId());
+            User save = userService.save(user);
+            return new ResponseEntity<>(save, HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{username}")
