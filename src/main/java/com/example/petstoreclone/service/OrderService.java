@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,5 +21,10 @@ public class OrderService {
         order.setShipDate(LocalDateTime.now());
         orderRepository.save(order);
         return order;
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Order> findById(long id) {
+        return orderRepository.findById(id);
     }
 }
