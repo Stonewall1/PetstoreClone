@@ -13,13 +13,13 @@ public class Pet {
     private String category;
     @NotBlank(message = "Field cant be empty")
     private String name;
-    @NotBlank(message = "Field cant be empty")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private PetStatus status;
 
     public Pet() {
     }
 
-    public Pet(long id, String category, String name, String status) {
+    public Pet(long id, String category, String name, PetStatus status) {
         this.id = id;
         this.category = category;
         this.name = name;
@@ -50,11 +50,11 @@ public class Pet {
         this.name = name;
     }
 
-    public String getStatus() {
+    public PetStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PetStatus status) {
         this.status = status;
     }
 
@@ -64,7 +64,7 @@ public class Pet {
                 "id=" + id +
                 ", category='" + category + '\'' +
                 ", name='" + name + '\'' +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

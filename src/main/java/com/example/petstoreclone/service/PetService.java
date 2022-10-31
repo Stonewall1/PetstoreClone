@@ -1,6 +1,7 @@
 package com.example.petstoreclone.service;
 
 import com.example.petstoreclone.entity.Pet;
+import com.example.petstoreclone.entity.PetStatus;
 import com.example.petstoreclone.exceptions.NoIdFoundException;
 import com.example.petstoreclone.repository.PetRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class PetService {
     }
 
     @Transactional(readOnly = true)
-    public List<Pet> findPetsByStatus(String status) {
+    public List<Pet> findPetsByStatus(PetStatus status) {
         return petRepository.findPetsByStatus(status);
     }
 

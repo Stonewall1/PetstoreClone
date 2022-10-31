@@ -1,23 +1,23 @@
 package com.example.petstoreclone.dto;
 
-import javax.validation.constraints.NotBlank;
+import com.example.petstoreclone.entity.PetStatus;
 
 public class PetStatusDto {
-    @NotBlank(message = "Field cant be empty")
-    private String status;
+
+    private PetStatus status;
 
     public PetStatusDto() {
     }
 
-    public PetStatusDto(String status) {
+    public PetStatusDto(PetStatus status) {
         this.status = status;
     }
 
-    public String getStatus() {
+    public PetStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PetStatus status) {
         this.status = status;
     }
 }
