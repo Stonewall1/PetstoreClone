@@ -49,4 +49,16 @@ public class StoreController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @DeleteMapping("/order/{orderId}")
+    @Operation(summary = "Delete purchase order by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Order not found")
+    })
+    public ResponseEntity<?> deleteById(@PathVariable(name = "orderId") @Parameter(description = "ID of order that needs to be deleted") long orderId) {
+        Order order = orderService.deleteById(orderId);
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
 }
