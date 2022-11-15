@@ -9,9 +9,9 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String category;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String name;
     @Enumerated(EnumType.STRING)
     private PetStatus status;

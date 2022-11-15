@@ -9,7 +9,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String categoryName;
 
     public Category() {

@@ -13,7 +13,7 @@ public class Order {
     private long petId;
     private long quantity;
     private LocalDateTime shipDate;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String status;
     private boolean complete;
 

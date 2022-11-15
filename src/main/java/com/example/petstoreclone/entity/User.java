@@ -9,17 +9,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String token;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String username;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String firstName;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String lastName;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String email;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String password;
-    @NotBlank(message = "Field cant be empty")
+//    @NotBlank(message = "Field cant be empty")
     private String phone;
     private int userStatus;
 
